@@ -11,6 +11,7 @@ avl:
 
 test: avl
 	$(CC) -o $(EXE) $(CFLAGS) -I$(INCLUDE) test/main.cpp avl.o
+	./exe
 
 clean:
 	rm *.o
