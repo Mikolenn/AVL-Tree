@@ -1,5 +1,15 @@
 #include "functions.h"
 
+int create(float* list, Node ** root){
+
+  for (int i = 0; i < sizeof(list); i++) {
+    insert(*root,  list[i], root);
+  }
+
+  return 1;
+
+}
+
 int minGet(Node* node, Node** min)
 {
     Node* current=node;
