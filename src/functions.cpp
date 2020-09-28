@@ -1,5 +1,34 @@
 #include "functions.h"
 
+int create(float* list, Node ** root){
+
+  for (int i = 0; i < sizeof(list); i++) {
+    insert(*root,  list[i], root);
+  }
+
+  return 1;
+
+}
+
+int minGet(Node* node, Node** min)
+{
+    Node* current=node;
+    while (current->left != NULL)
+        // cout<<current->num<<endl;
+        current= current->left;
+        *min=current;
+    return 1;
+}
+
+int maxGet(Node* node, Node** max)
+{
+    Node* current=node;
+    while (current->right != NULL)
+        // cout<<current->num<<endl;
+        current= current->right;
+        *max=current;
+    return 1;
+}
 
 int height(Node *node)
 {
@@ -8,18 +37,7 @@ int height(Node *node)
     return node->height;
 }
 
-Node* newNode(int num)
-{
-    Node* node = new Node();
-    node->num = num;
-    node->left = NULL;
-    node->right = NULL;
-    node->height = 0;
-
-    return(node);
-}
-
-Node *rightRotate(Node *y)
+int rightRotate(Node *y,Node** root )
 {
     Node *x = y->left;
     Node *temp = x->right;
@@ -33,11 +51,12 @@ Node *rightRotate(Node *y)
     x->height =1+ max(height(x->left),
                     height(x->right));
 
-    return x;
+    *root= x;
+    return 0;
 }
 
 
-Node *leftRotate(Node *x)
+int leftRotate(Node *x,Node** root)
 {
     Node *y = x->right;
     Node *temp = y->left;
@@ -52,54 +71,46 @@ Node *leftRotate(Node *x)
                     height(y->right)) + 1;
 
 
-    return y;
+    *root = y;
+    return 0;
 }
 
 
 
-
-Node* balanceAVL(int num,Node *node){
+int balanceAVL(int num,Node *node){
   int balance;
   if (node == NULL){balance= -1;}
   else {balance=height(node->left) - height(node->right);}
-
-  // Left Left Case
-  if (balance > 1 && num < node->left->num)
-      return rightRotate(node);
-
-  // Right Right Case
-  if (balance < -1 && num > node->right->num)
-      return leftRotate(node);
-
-  // Left Right Case
-  if (balance > 1 && num > node->left->num)
-  {
-      node->left = leftRotate(node->left);
-      return rightRotate(node);
-  }
-
-  // Right Left Case
-  if (balance < -1 && num < node->right->num)
-  {
-      node->right = rightRotate(node->right);
-      return leftRotate(node);
-  }
-
-
-  return node;
+  return balance;
 }
 
-Node* insert(Node* node, int num)
+
+int insert(Node* node, int num, Node** root)
 {
+    if (node!= NULL) {
+
+    }
+    int return_val;
+    Node* nuevo = new Node();
     //Caso en que el nodo este vacio
-    if (node == NULL)
-        return(newNode(num));
-    if (num > node->num)
-        node->right = insert(node->right, num);
-    else if (num < node->num)
-        node->left = insert(node->left, num);
-    else // No se pueden numeros iguales
-        return node;
+    if (node == NULL){
+
+        nuevo->num = num;
+        nuevo->left = NULL;
+        nuevo->right = NULL;
+        nuevo->height = 0;
+        *root=nuevo;
+        return 0;
+        return return_val;}
+    if (num > node->num){
+
+        return_val = insert(node->right, num, &node->right);}
+    else if (num <= node->num){
+
+        return_val = insert(node->left, num, &node->left);}
+    else {// No se pueden numeros iguales
+
+        return -1;}
 
     // Actualizamos las alturas
 
@@ -107,7 +118,35 @@ Node* insert(Node* node, int num)
                            height(node->right));
 
     // Encuentra el balance, y si no es adecuado, lo balancea, retorna el puntero a la raiz
-    return balanceAVL(num,node);
+    int balance = balanceAVL(num,node);
+
+
+    // Left Left Case
+    if (balance > 1 && num < node->left->num)
+        return rightRotate(node, root);
+
+    // Right Right Case
+    if (balance < -1 && num > node->right->num)
+        return leftRotate(node, root);
+
+    // Left Right Case
+    if (balance > 1 && num > node->left->num)
+    {
+        return_val = leftRotate(node->left, &node->left);
+        return rightRotate(node, root);
+    }
+
+    // Right Left Case
+    if (balance < -1 && num < node->right->num)
+    {
+        return_val = rightRotate(node->right, &node->right);
+        return leftRotate(node, root);
+    }
+
+
+    return 1;
+
+
 }
 
 

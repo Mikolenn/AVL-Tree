@@ -8,24 +8,19 @@ using namespace std;
 
 int main()
 {
-Node *root = NULL;
+  Node *root = NULL;
+  Node *min= NULL;
+  Node *max= NULL;
 
-
-    root = insert(root, 10);
-    root = insert(root, 4);
-    root = insert(root, 6);
-    root = insert(root, 3);
-    root = insert(root, 2);
-    root = insert(root, 1);
-    root = insert(root, -4);
-    root = insert(root, -5);
-    root = insert(root,  20);
-    root = insert(root,  -6);
-
-
-    printAVL(root);
-
-    cout<<endl;
+  float arr[]={10,4,3,2,1,7,20,24,6};
+  create(arr,&root);
+  printAVL(root);
+  cout<<endl;
+  
+  minGet(root, &min);
+  maxGet(root, &max);
+  cout<<"El menor nodo es "<<min->num<<endl;
+  cout<<"El mayor nodo es "<<max->num<<endl;
 
 
 
