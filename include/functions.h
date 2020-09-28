@@ -30,11 +30,12 @@ class Node
 };
 
 int height(Node *node);
-// int newNode(int num, Node* root);
 int rightRotate(Node *y, Node* root);
 int leftRotate(Node *x, Node* root);
 int balanceAVL(int num,Node *node);
 int insert(Node* node, int num, Node** root);
 void printAVL(Node *root);
+int minGet(Node* node, Node** min);
+int maxGet(Node* node, Node** max);
 
 #endif

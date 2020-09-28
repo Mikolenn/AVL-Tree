@@ -1,5 +1,24 @@
 #include "functions.h"
 
+int minGet(Node* node, Node** min)
+{
+    Node* current=node;
+    while (current->left != NULL)
+        // cout<<current->num<<endl;
+        current= current->left;
+        *min=current;
+    return 1;
+}
+
+int maxGet(Node* node, Node** max)
+{
+    Node* current=node;
+    while (current->right != NULL)
+        // cout<<current->num<<endl;
+        current= current->right;
+        *max=current;
+    return 1;
+}
 
 int height(Node *node)
 {
@@ -7,16 +26,6 @@ int height(Node *node)
         return -1;
     return node->height;
 }
-
-// int newNode(int num, Node** root)
-// {
-//     root->num = num;
-//     root->left = NULL;
-//     root->right = NULL;
-//     root->height = 0;
-//
-//     return 0;
-// }
 
 int rightRotate(Node *y,Node** root )
 {
@@ -67,16 +76,15 @@ int balanceAVL(int num,Node *node){
 
 
 int insert(Node* node, int num, Node** root)
-{   cout<<"Voy a insertar  " << num<<endl;
+{
     if (node!= NULL) {
-      cout<<"La raiz es " << node->num<<endl;
-      cout<<"Su puntero es " << node<<endl;
+
     }
     int return_val;
     Node* nuevo = new Node();
     //Caso en que el nodo este vacio
     if (node == NULL){
-        cout<<"Estoy en caso de crear  " << num<<endl;
+
         nuevo->num = num;
         nuevo->left = NULL;
         nuevo->right = NULL;
@@ -85,13 +93,13 @@ int insert(Node* node, int num, Node** root)
         return 0;
         return return_val;}
     if (num > node->num){
-        cout<<"Insertar en el nodo derecho  " << num<<endl;
+
         return_val = insert(node->right, num, &node->right);}
     else if (num <= node->num){
-        cout<<"Insertar en el nodo izquierdo  " << num<<endl;
+
         return_val = insert(node->left, num, &node->left);}
     else {// No se pueden numeros iguales
-        cout<<"No deberia estar aca"<<endl;
+
         return -1;}
 
     // Actualizamos las alturas
@@ -101,7 +109,7 @@ int insert(Node* node, int num, Node** root)
 
     // Encuentra el balance, y si no es adecuado, lo balancea, retorna el puntero a la raiz
     int balance = balanceAVL(num,node);
-    cout<<"Balance  " << balance<<endl;
+
 
     // Left Left Case
     if (balance > 1 && num < node->left->num)
