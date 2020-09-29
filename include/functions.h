@@ -9,17 +9,6 @@
 
 using namespace std;
 
-
-
-enum avl_error_codes {
- AVL_SUCCESS = 0,
- AVL_INVALID_PARAM = -1,
- AVL_OUT_OF_RANGE = -2,
- AVL_TIMEOUT = -3,
- AVL_NOT_FOUND = -4,
- // Pueden añadir más
-};
-
 class Node
 {
     public:
@@ -30,13 +19,11 @@ class Node
 };
 
 int height(Node *node);
-int rightRotate(Node *y, Node* root);
-int leftRotate(Node *x, Node* root);
-int balanceAVL(int num,Node *node);
-int insert(Node* node, int num, Node** root);
+Node* newNode(int num);
+Node* rightRotate(Node *y);
+Node* leftRotate(Node *x);
+Node* balanceAVL(int num,Node *node);
+Node* insert(Node* node, int num);
 void printAVL(Node *root);
-int minGet(Node* node, Node** min);
-int maxGet(Node* node, Node** max);
-int create(float* list, Node ** root);
 
 #endif
