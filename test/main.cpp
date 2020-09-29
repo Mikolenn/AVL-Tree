@@ -22,9 +22,16 @@ int main()
   cout<<"El menor nodo es "<<min->num<<endl;
   cout<<"El mayor nodo es "<<max->num<<endl;
 
+  Node *found_node= NULL;
+  int error = avl_search(root, 24, &found_node);
 
+  cout<<"Código:"<<error<<endl;
+  cout<<"Valor del nodo:"<<(*found_node).num<<endl;
 
+  error = avl_search(root, 11, &found_node);
 
+  cout<<"Código:"<<error<<endl;
+  cout<<"Valor del nodo:"<<(*found_node).num<<endl;
 
 
     return 0;

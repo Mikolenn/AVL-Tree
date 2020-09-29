@@ -38,5 +38,6 @@ void printAVL(Node *root);
 int minGet(Node* node, Node** min);
 int maxGet(Node* node, Node** max);
 int create(float* list, Node ** root);
+int avl_search(Node* in_root, float num, Node**nfound_node);
 
 #endif

@@ -143,15 +143,36 @@ int insert(Node* node, int num, Node** root)
         return leftRotate(node, root);
     }
 
-
     return 1;
-
 
 }
 
+int avl_search(Node* in_root, float num, Node** found_node)
+{
+    Node* current= in_root;
 
+    while ((*current).right != NULL || (*current).left != NULL)
+    {
+        if ((*current).num == num)
+        {
+            *found_node=current;
+            return 0;
+        }
 
+        if ((*current).num < num)
+        {
+            current= (*current).right;
+        }
 
+        if ((*current).num > num)
+        {
+            current= (*current).left;
+        }
+    }
+
+    return -4;
+    
+}
 
 void printAVL(Node *root)
 {
