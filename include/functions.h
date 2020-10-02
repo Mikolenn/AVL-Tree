@@ -32,7 +32,7 @@ class Node
 int height(Node *node);
 int rightRotate(Node *y, Node** root);
 int leftRotate(Node *x, Node** root);
-int balanceAVL(int num, Node *node);
+int balanceAVL(Node *node);
 int insert(Node* node, float num, Node** root);
 void printAVL(Node *root);
 int minGet(Node* node, Node** min);

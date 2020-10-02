@@ -29,7 +29,7 @@ int main()
   cout<<"Buscamos el num: "<<num<<endl;
   cout<< search(root, num, &searched)<<endl;
 
-for (int i = 0; i < sizeof(arr)/sizeof(float); i++)
+for (int i = 0; i < (int)(sizeof(arr)/sizeof(float)); i++)
 {
   cout<<deleteNode(root,arr[i]+1,&root)<<endl;
   printAVL(root);
