@@ -4,15 +4,15 @@ int search(Node * root, float num_searched, Node ** nodo){
   if (root==NULL) {
     return -4;
   }
-  else if (root->num==num_searched){
+  else if (root->num == num_searched){
     *nodo=root;
     return 1;
   }
   else if (num_searched > root->num) {
     return search(root->right, num_searched, nodo);
   }
-  else if (num_searched>root->num){
-    return search(root->right, num_searched, nodo);
+  else if (num_searched < root->num){
+    return search(root->left, num_searched, nodo);
   }
 
   return -4;
