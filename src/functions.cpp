@@ -1,31 +1,140 @@
 #include "functions.h"
 
-int search(Node * root, float num_searched, Node ** nodo){
-  if (root==NULL) {
-    return -4;
-  }
-  else if (root->num==num_searched){
-    *nodo=root;
-    return 1;
-  }
-  else if (num_searched > root->num) {
-    return search(root->right, num_searched, nodo);
-  }
-  else if (num_searched>root->num){
-    return search(root->right, num_searched, nodo);
-  }
+int deleteNode(Node* root, float num, Node** new_root)  
+{  
+    Node* temp = new Node();
+    int error_code;
+    // STEP 1: PERFORM STANDARD BST DELETE  
+    if (root == NULL)  
+        return -1;  
+  
+    // If the key to be deleted is smaller  
+    // than the root's key, then it lies 
+    // in left subtree  
+    if ( num < root->num )  
 
-  return -4;
+        error_code = deleteNode(root->left, num, &(root->left));  
+  
+    // If the key to be deleted is greater  
+    // than the root's key, then it lies  
+    // in right subtree  
+    else if( num > root->num )
+
+        error_code = deleteNode(root->right, num, &(root->right)); 
+  
+    // if key is same as root's key, then  
+    // This is the node to be deleted  
+    else
+    {  
+        // node with only one child or no child  
+        if( (root->left == NULL) || 
+            (root->right == NULL) )  
+        {  
+            temp = root->left ?  
+                         root->left :  
+                         root->right;  
+  
+            // No child case  
+            if (temp == NULL)  
+            {  
+                temp = root;  
+                root = NULL;  
+            }  
+            else // One child case  
+            *root = *temp; // Copy the contents of  
+                           // the non-empty child  
+            free(temp);  
+        }  
+        else
+        {  
+            // node with two children: Get the inorder  
+            // successor (smallest in the right subtree)  
+            error_code = minGet(root->right, &temp);  
+  
+            // Copy the inorder successor's  
+            // data to this node  
+            root->num = temp->num;  
+  
+            // Delete the inorder successor  
+            error_code = deleteNode(root->right, temp->num, &(root->right));
+ 
+        }  
+    }  
+  
+    // If the tree had only one node 
+    // then return  
+    if (root == NULL)  
+    *new_root=root;
+    return 0;  
+  
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE  
+    root->height = 1 + max(height(root->left),  
+                           height(root->right));  
+  
+    // STEP 3: GET THE BALANCE FACTOR OF  
+    // THIS NODE (to check whether this  
+    // node became unbalanced)  
+    int balance = balanceAVL(num, root);
+  
+    // If this node becomes unbalanced,  
+    // then there are 4 cases  
+  
+    // Left Left Case  
+    if (balance > 1 &&  
+        balanceAVL(num, root->left) >= 0)  
+        return rightRotate(root, new_root);
+  
+    // Left Right Case  
+    if (balance > 1 &&  
+        balanceAVL(num, root->left) < 0)  
+    {  
+        error_code = leftRotate(root->left, &(root->left));  
+        return rightRotate(root, new_root);  
+    }  
+  
+    // Right Right Case  
+    if (balance < -1 &&  
+        balanceAVL(num, root->right) <= 0)  
+        return leftRotate(root, new_root);  
+  
+    // Right Left Case  
+    if (balance < -1 &&  
+        balanceAVL(num, root->right) > 0)  
+    {  
+        error_code = rightRotate(root->right, &(root->right));  
+        return leftRotate(root, new_root);  
+    }  
+    
+    *new_root=root;
+
+    return 0;  
+}  
+
+int search(Node * root, float num_searched, Node ** nodo){
+    if (root==NULL) {
+        return -4;
+    }
+    else if (root->num==num_searched){
+        *nodo=root;
+        return 1;
+    }
+    else if (num_searched > root->num) {
+        return search(root->right, num_searched, nodo);
+    }
+    else if (num_searched < root->num){
+        return search(root->left, num_searched, nodo);
+    }
+
+    return -4;
 }
 
 int create(float* list, Node ** root){
 
-  for (int i = 0; i < sizeof(list); i++) {
-    insert(*root,  list[i], root);
-  }
+    for (int i = 0; i < sizeof(list); i++) {
+        insert(*root,  list[i], root);
+    }
 
-  return 1;
-
+    return 1;
 }
 
 int minGet(Node* node, Node** min)
@@ -96,10 +205,17 @@ int leftRotate(Node *x,Node** root)
 
 
 int balanceAVL(int num,Node *node){
-  int balance;
-  if (node == NULL){balance= 0;}
-  else {balance=height(node->left) - height(node->right);}
-  return balance;
+    int balance;
+    if (node == NULL)
+    {
+        balance= 0;
+
+    } else 
+    {
+        balance=height(node->left) - height(node->right);
+    }
+    
+    return balance;
 }
 
 

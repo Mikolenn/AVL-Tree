@@ -16,5 +16,3 @@ test: avl
 clean:
 	rm *.o
 
-# ejemplo:
-# 	echo "Labo Progra"

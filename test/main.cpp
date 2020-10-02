@@ -23,20 +23,27 @@ int main()
   cout<<"El menor nodo es "<<min->num<<endl;
   cout<<"El mayor nodo es "<<max->num<<endl;
 
-  float num=8;
+  float num=20;
 
 
   cout<<"Buscamos el num: "<<num<<endl;
   cout<< search(root, num, &searched)<<endl;
 
-  // cout<<remove(root,4,&root)<<endl;
-  // printAVL(root);
-  // cout<<endl;
+  cout<<deleteNode(root,245,&root)<<endl;
+  printAVL(root);
+  cout<<endl;
 
+  cout<<deleteNode(root,4,&root)<<endl;
+  printAVL(root);
+  cout<<endl;
 
+  cout<<deleteNode(root,2,&root)<<endl;
+  printAVL(root);
+  cout<<endl;
 
-
-
+  cout<<deleteNode(root,20,&root)<<endl;
+  printAVL(root);
+  cout<<endl;
 
 
 

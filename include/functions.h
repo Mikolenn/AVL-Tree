@@ -30,15 +30,16 @@ class Node
 };
 
 int height(Node *node);
-int rightRotate(Node *y, Node* root);
-int leftRotate(Node *x, Node* root);
-int balanceAVL(int num,Node *node);
+int rightRotate(Node *y, Node** root);
+int leftRotate(Node *x, Node** root);
+int balanceAVL(int num, Node *node);
 int insert(Node* node, float num, Node** root);
 void printAVL(Node *root);
 int minGet(Node* node, Node** min);
 int maxGet(Node* node, Node** max);
 int create(float* list, Node ** root);
 int search(Node * root, float num_searched, Node ** nodo);
-int remove(Node* node, float num, Node** root );
+//int remove(Node* node, float num, Node** root );
+int deleteNode(Node* root, float num, Node** new_root);
 
 #endif
