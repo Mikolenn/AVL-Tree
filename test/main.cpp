@@ -31,7 +31,7 @@ int main()
 
 for (int i = 0; i < sizeof(arr)/sizeof(float); i++)
 {
-  cout<<deleteNode(root,arr[i]+1,&root)<<endl;
+  cout<<deleteNode(root,arr[i],&root)<<endl;
   printAVL(root);
   cout<<endl;
 }
