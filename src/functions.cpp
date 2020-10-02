@@ -5,8 +5,10 @@ int deleteNode(Node* root, float num, Node** new_root)
     Node* temp = new Node();
     int error_code;
       
-    if (root == NULL)  
-        return -1;  
+    if (root == NULL){
+        *new_root=root;  
+        return -4; 
+    } 
   
     // Si el valor buscado es
     //menor, se va a la izquierda 
@@ -16,8 +18,13 @@ int deleteNode(Node* root, float num, Node** new_root)
    
     else if( num > root->num )
 
-        error_code = deleteNode(root->right, num, &(root->right)); 
-  
+        error_code = deleteNode(root->right, num, &(root->right));
+
+    else if(num != root->num){
+
+        *new_root = root;
+        return -4;
+    }
  
     else
     {  
