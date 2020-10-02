@@ -11,27 +11,33 @@ int main()
   Node *root = NULL;
   Node *min= NULL;
   Node *max= NULL;
+  Node *searched= NULL;
 
-  float arr[]={10,4,3,2,1,7,20,24,6};
+  float arr[]={10.5,4,3,2,1,7,20,245,6};
   create(arr,&root);
   printAVL(root);
   cout<<endl;
-  
+
   minGet(root, &min);
   maxGet(root, &max);
   cout<<"El menor nodo es "<<min->num<<endl;
   cout<<"El mayor nodo es "<<max->num<<endl;
 
-  Node *found_node= NULL;
-  int error = avl_search(root, 24, &found_node);
+  float num=8;
 
-  cout<<"Código:"<<error<<endl;
-  cout<<"Valor del nodo:"<<(*found_node).num<<endl;
 
-  error = avl_search(root, 11, &found_node);
+  cout<<"Buscamos el num: "<<num<<endl;
+  cout<< search(root, num, &searched)<<endl;
 
-  cout<<"Código:"<<error<<endl;
-  cout<<"Valor del nodo:"<<(*found_node).num<<endl;
+  // cout<<remove(root,4,&root)<<endl;
+  // printAVL(root);
+  // cout<<endl;
+
+
+
+
+
+
 
 
     return 0;

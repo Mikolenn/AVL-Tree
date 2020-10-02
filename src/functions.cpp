@@ -1,5 +1,23 @@
 #include "functions.h"
 
+int search(Node * root, float num_searched, Node ** nodo){
+  if (root==NULL) {
+    return -4;
+  }
+  else if (root->num==num_searched){
+    *nodo=root;
+    return 1;
+  }
+  else if (num_searched > root->num) {
+    return search(root->right, num_searched, nodo);
+  }
+  else if (num_searched>root->num){
+    return search(root->right, num_searched, nodo);
+  }
+
+  return -4;
+}
+
 int create(float* list, Node ** root){
 
   for (int i = 0; i < sizeof(list); i++) {
@@ -33,7 +51,7 @@ int maxGet(Node* node, Node** max)
 int height(Node *node)
 {
     if (node == NULL)
-        return -1;
+        return 0;
     return node->height;
 }
 
@@ -79,17 +97,15 @@ int leftRotate(Node *x,Node** root)
 
 int balanceAVL(int num,Node *node){
   int balance;
-  if (node == NULL){balance= -1;}
+  if (node == NULL){balance= 0;}
   else {balance=height(node->left) - height(node->right);}
   return balance;
 }
 
 
-int insert(Node* node, int num, Node** root)
+int insert(Node* node, float num, Node** root)
 {
-    if (node!= NULL) {
 
-    }
     int return_val;
     Node* nuevo = new Node();
     //Caso en que el nodo este vacio
@@ -98,15 +114,12 @@ int insert(Node* node, int num, Node** root)
         nuevo->num = num;
         nuevo->left = NULL;
         nuevo->right = NULL;
-        nuevo->height = 0;
+        nuevo->height = 1;
         *root=nuevo;
-        return 0;
         return return_val;}
     if (num > node->num){
-
         return_val = insert(node->right, num, &node->right);}
     else if (num <= node->num){
-
         return_val = insert(node->left, num, &node->left);}
     else {// No se pueden numeros iguales
 
@@ -143,36 +156,134 @@ int insert(Node* node, int num, Node** root)
         return leftRotate(node, root);
     }
 
+    *root=node;
     return 1;
 
+
 }
 
-int avl_search(Node* in_root, float num, Node** found_node)
+int remove(Node* node, float num, Node** root )
 {
-    Node* current= in_root;
-
-    while ((*current).right != NULL || (*current).left != NULL)
-    {
-        if ((*current).num == num)
-        {
-            *found_node=current;
-            return 0;
-        }
-
-        if ((*current).num < num)
-        {
-            current= (*current).right;
-        }
-
-        if ((*current).num > num)
-        {
-            current= (*current).left;
-        }
-    }
-
-    return -4;
-    
+    int return_val=0;
+    // bool sinh=false;
+    //
+    // if (node == NULL){ //Caso en que no se encontro
+    //   *root=node;
+    //   return -4;
+    // }
+    //
+    //
+    //
+    // if ( num < node->num ){
+    //     return_val= remove(node->left, num, &node->left );
+    //     cout<<"sali"<<endl;
+    // }
+    //
+    // // If the key to be deleted is greater
+    // // than the root's key, then it lies
+    // // in right subtree
+    // else if( num > node->num){
+    //     return_val = remove(node->right, num, &node->right);
+    //     cout<<"sali"<<endl;
+    // }
+    //
+    // else //Lo encontro
+    // {
+    //     // un solo hijo o sin hijos
+    //     if( (node->left == NULL) ||
+    //         (node->right == NULL) )
+    //     {
+    //
+    //         Node *temp = node->left ? node->left : node->right;
+    //         cout<<"sin hijos o solo uno"<<endl;
+    //         // Sin hijos
+    //         if (temp == NULL)
+    //         {
+    //             sinh=true;
+    //             temp = node;
+    //             node = NULL;
+    //         }
+    //         else{ // un solo hijo
+    //           *node = *temp;
+    //         }// se copia el contenido del unico hijo
+    //
+    //         free(temp);
+    //
+    //     }
+    //     else
+    //     {
+    //         // Caso 2 hijos
+    //         // tomar el mas pequeno a la derecha
+    //         Node* temp;
+    //         cout<<"Entro al min "<<endl;
+    //         minGet(node->right, &temp);
+    //         cout<<"Salio al min "<<  temp->num <<endl;
+    //
+    //         // Copiamos el numero en el temporal
+    //         node->num = temp->num;
+    //
+    //         // Delete the inorder successor
+    //         cout<<"Pasamos al siguiente" <<endl;
+    //         return_val = remove(node->right, temp->num, &node->right);
+    //         cout<<"Salimos al siguiente" <<endl;
+    //     }
+    //
+    // }
+    //
+    //
+    // // Si solo tiene un nodo
+    // if (node == NULL){
+    //   *root=node;
+    //   return 1;
+    // }
+    //
+    // // Actualizamos las alturas
+    //
+    //
+    //
+    //
+    //
+    // node->height = 1 + max(height(node->left),
+    //                        height(node->right));
+    //
+    //
+    // // Encuentra el balance, y si no es adecuado, lo balancea, retorna el puntero a la raiz
+    // int balance = balanceAVL(num,node);
+    //
+    //
+    //
+    //
+    // // Left Left Case
+    // if (balance > 1 && num < node->left->num){
+    //     return rightRotate(node, root);
+    //   }
+    //
+    // // Right Right Case
+    // if (balance < -1 && num > node->right->num){
+    //     return leftRotate(node, root);
+    //   }
+    //
+    // // Left Right Case
+    // if (balance > 1 && num > node->left->num)
+    // {
+    //     return_val = leftRotate(node->left, &node->left);
+    //     return rightRotate(node, root);
+    // }
+    //
+    // // Right Left Case
+    // if (balance < -1 && num < node->right->num)
+    // {
+    //     return_val = rightRotate(node->right, &node->right);
+    //     cout<<"hola"<<endl;
+    //     return leftRotate(node, root);
+    // }
+    //
+    // *root=node;
+    return return_val;
 }
+
+
+
 
 void printAVL(Node *root)
 {

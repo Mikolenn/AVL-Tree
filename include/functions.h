@@ -23,7 +23,7 @@ enum avl_error_codes {
 class Node
 {
     public:
-    int num;
+    float num;
     int height;
     Node *left;
     Node *right;
@@ -33,11 +33,12 @@ int height(Node *node);
 int rightRotate(Node *y, Node* root);
 int leftRotate(Node *x, Node* root);
 int balanceAVL(int num,Node *node);
-int insert(Node* node, int num, Node** root);
+int insert(Node* node, float num, Node** root);
 void printAVL(Node *root);
 int minGet(Node* node, Node** min);
 int maxGet(Node* node, Node** max);
 int create(float* list, Node ** root);
-int avl_search(Node* in_root, float num, Node**nfound_node);
+int search(Node * root, float num_searched, Node ** nodo);
+int remove(Node* node, float num, Node** root );
 
 #endif
