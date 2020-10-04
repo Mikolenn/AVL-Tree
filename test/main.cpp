@@ -32,12 +32,16 @@ int main()
     cout<<"Buscamos el num: "<<num<<endl;
     cout<< avl_search(root, num, &searched)<<endl;
 
-for (int i = 0; i < (int)(sizeof(arr)/sizeof(float)); i++)
-{
-    cout<<avl_node_remove(root,arr[i],&root)<<endl;
+    cout<<"Borramos el num: "<<avl_node_remove(root,14,&root)<<endl;
     avl_print(root);
     cout<<endl;
-}
+
+// for (int i = 0; i < (int)(sizeof(arr)/sizeof(float)); i++)
+// {
+//     cout<<avl_node_remove(root,arr[i],&root)<<endl;
+//     avl_print(root);
+//     cout<<endl;
+// }
 
     return 0;
 }

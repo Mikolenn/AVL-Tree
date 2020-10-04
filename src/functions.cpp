@@ -118,7 +118,7 @@ int avl_search(Node * root, float num_searched, Node ** nodo){
         return avl_search(root->left, num_searched, nodo);
     }
 
-    return -4;
+    return -1;
 }
 
 
