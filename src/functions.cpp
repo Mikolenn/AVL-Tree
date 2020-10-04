@@ -1,168 +1,173 @@
 #include "functions.h"
 
-int deleteNode(Node* root, float num, Node** new_root)  
+int avl_node_remove(Node* in_root, float num, Node** new_root)  
 {  
     Node* temp = new Node();
     int error_code=-4;
       
-    if (root == NULL){
-        *new_root=root;  
+    if (in_root == NULL){
+        *new_root=in_root;  
         return error_code; 
     } 
   
     // Si el valor buscado es
     //menor, se va a la izquierda 
-    if ( num < root->num )  
+    if ( num < in_root->num )  
 
-        error_code = deleteNode(root->left, num, &(root->left));  
+        error_code = avl_node_remove(in_root->left, num, &(in_root->left));  
    
-    else if( num > root->num )
+    else if( num > in_root->num )
 
-        error_code = deleteNode(root->right, num, &(root->right));
+        error_code = avl_node_remove(in_root->right, num, &(in_root->right));
 
-    else if(num != root->num){
+    else if(num != in_root->num){
 
-        *new_root = root;
+        *new_root = in_root;
         return -4;
     }
  
     else
     {  
  
-        if( (root->left == NULL) || 
-            (root->right == NULL) )  
+        if( (in_root->left == NULL) || 
+            (in_root->right == NULL) )  
         {  
-            temp = root->left ?  
-                         root->left :  
-                         root->right;  
+            temp = in_root->left ?  
+                         in_root->left :  
+                         in_root->right;  
    
             if (temp == NULL)  
             {  
-                temp = root;  
-                root = NULL;  
+                temp = in_root;  
+                in_root = NULL;  
             }  
             else  
-            *root = *temp;  
+            *in_root = *temp;  
                          
             free(temp);  
         }  
         else
         {  
 
-            error_code = minGet(root->right, &temp);  
+            error_code = avl_min_get(in_root->right, &temp);  
   
 
-            root->num = temp->num;  
+            in_root->num = temp->num;  
   
-            error_code = deleteNode(root->right, temp->num, &(root->right));
+            error_code = avl_node_remove(in_root->right, temp->num, &(in_root->right));
  
         }  
     }  
    
-    if (root == NULL)  
-    *new_root=root;
+    if (in_root == NULL)  
+    *new_root=in_root;
     return 0;  
 
-    root->height = 1 + max(height(root->left),  
-                           height(root->right));  
+    in_root->height = 1 + max(height(in_root->left),  
+                           height(in_root->right));  
  
-    int balance = balanceAVL(root);
+    int balance = balanceAVL(in_root);
 
 
     if (balance > 1 &&  
-        balanceAVL(root->left) >= 0)  
-        return rightRotate(root, new_root);
+        balanceAVL(in_root->left) >= 0)  
+        return rightRotate(in_root, new_root);
 
 
     if (balance > 1 &&  
-        balanceAVL(root->left) < 0)  
+        balanceAVL(in_root->left) < 0)  
     {  
-        error_code = leftRotate(root->left, &(root->left));  
-        return rightRotate(root, new_root);  
+        error_code = leftRotate(in_root->left, &(in_root->left));  
+        return rightRotate(in_root, new_root);  
     }  
 
     if (balance < -1 &&  
-        balanceAVL(root->right) <= 0)  
-        return leftRotate(root, new_root);  
+        balanceAVL(in_root->right) <= 0)  
+        return leftRotate(in_root, new_root);  
 
     if (balance < -1 &&  
-        balanceAVL(root->right) > 0)  
+        balanceAVL(in_root->right) > 0)  
     {  
-        error_code = rightRotate(root->right, &(root->right));  
-        return leftRotate(root, new_root);  
+        error_code = rightRotate(in_root->right, &(in_root->right));  
+        return leftRotate(in_root, new_root);  
     }  
     
-    *new_root=root;
+    *new_root=in_root;
 
     return 0;  
 }  
 
 
-int search(Node * root, float num_searched, Node ** nodo){
-    if (root==NULL) {
+int avl_search(Node * root, float num_searched, Node ** nodo){
+
+    if (root == NULL) {
+
         return -4;
     }
-    else if (root->num==num_searched){
+    else if (root->num == num_searched){
+
         *nodo=root;
-        return 1;
+        return 0;
     }
     else if (num_searched > root->num) {
-        return search(root->right, num_searched, nodo);
+
+        return avl_search(root->right, num_searched, nodo);
     }
     else if (num_searched < root->num){
-        return search(root->left, num_searched, nodo);
+
+        return avl_search(root->left, num_searched, nodo);
     }
 
     return -4;
 }
 
 
-int create(float* list, Node ** root){
+int avl_create(float* list, Node ** new_root){
 
     for (int i = 0; i < (int)sizeof(list); i++) {
-        insert(*root,  list[i], root);
+        avl_node_add(*new_root,  list[i], new_root);
     }
 
-    return 1;
+    return 0;
 }
 
 
-int minGet(Node* node, Node** min)
+int avl_min_get(Node* root, Node** min_node)
 {
-    Node* current=node;
+    Node* current=root;
     while (current->left != NULL)
     {
         current= current->left;
     }
         
-    *min=current;
-    return 1;
+    *min_node=current;
+    return 0;
 }
 
 
-int maxGet(Node* node, Node** max)
+int avl_max_get(Node* root, Node** max_node)
 {
-    Node* current=node;
+    Node* current=root;
     while (current->right != NULL)
     {
         current= current->right;
     }    
 
-    *max=current;
-    return 1;
+    *max_node=current;
+    return 0;
 }
 
 
-int height(Node *node)
+int height(Node *root)
 {
-    if (node == NULL)
+    if (root == NULL)
         return 0;
 
-    return node->height;
+    return root->height;
 }
 
 
-int rightRotate(Node *y,Node** root )
+int rightRotate(Node *y, Node** root )
 {
     Node *x = y->left;
     Node *temp = x->right;
@@ -201,87 +206,96 @@ int leftRotate(Node *x,Node** root)
 }
 
 
-int balanceAVL(Node *node){
+int balanceAVL(Node *root){
+
     int balance;
-    if (node == NULL)
+
+    if (root == NULL)
     {
         balance= 0;
 
     } else 
     {
-        balance=height(node->left) - height(node->right);
+        balance=height(root->left) - height(root->right);
     }
     
     return balance;
 }
 
 
-int insert(Node* node, float num, Node** root)
+int avl_node_add(Node* in_root, float num, Node** new_root)
 {
 
     int return_val=0;
     Node* nuevo = new Node();
     //Caso en que el nodo este vacio
-    if (node == NULL){
+    if (in_root == NULL){
 
         nuevo->num = num;
         nuevo->left = NULL;
         nuevo->right = NULL;
         nuevo->height = 1;
-        *root=nuevo;
-        return return_val;}
-    if (num > node->num){
-        return_val = insert(node->right, num, &node->right);}
-    else if (num <= node->num){
-        return_val = insert(node->left, num, &node->left);}
+        *new_root=nuevo;
+
+        return return_val;
+    }
+
+    if (num > in_root->num)
+    {
+        return_val = avl_node_add(in_root->right, num, &in_root->right);
+    }
+    else if (num <= in_root->num)
+    {
+        return_val = avl_node_add(in_root->left, num, &in_root->left);
+    }
     else {// No se pueden numeros iguales
 
-        return -1;}
+        return -1;
+    }
 
     // Actualizamos las alturas
 
-    node->height = 1 + max(height(node->left),
-                           height(node->right));
+    in_root->height = 1 + max(height(in_root->left),
+                           height(in_root->right));
 
     // Encuentra el balance, y si no es adecuado, lo balancea, retorna el puntero a la raiz
-    int balance = balanceAVL(node);
+    int balance = balanceAVL(in_root);
 
 
     // Left Left Case
-    if (balance > 1 && num < node->left->num)
-        return rightRotate(node, root);
+    if (balance > 1 && num < in_root->left->num)
+        return rightRotate(in_root, new_root);
 
     // Right Right Case
-    if (balance < -1 && num > node->right->num)
-        return leftRotate(node, root);
+    if (balance < -1 && num > in_root->right->num)
+        return leftRotate(in_root, new_root);
 
     // Left Right Case
-    if (balance > 1 && num > node->left->num)
+    if (balance > 1 && num > in_root->left->num)
     {
-        return_val = leftRotate(node->left, &node->left);
-        return rightRotate(node, root);
+        return_val = leftRotate(in_root->left, &in_root->left);
+        return rightRotate(in_root, new_root);
     }
 
     // Right Left Case
-    if (balance < -1 && num < node->right->num)
+    if (balance < -1 && num < in_root->right->num)
     {
-        return_val = rightRotate(node->right, &node->right);
-        return leftRotate(node, root);
+        return_val = rightRotate(in_root->right, &in_root->right);
+        return leftRotate(in_root, new_root);
     }
 
-    *root=node;
+    *new_root=in_root;
     return return_val;
-
-
 }
 
 
-void printAVL(Node *root)
+int avl_print(Node *root)
 {
     if(root != NULL)
     {
         cout << root->num << " ";
-        printAVL(root->left);
-        printAVL(root->right);
+        avl_print(root->left);
+        avl_print(root->right);
     }
+    return 0;
 }

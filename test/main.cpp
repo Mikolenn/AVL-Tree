@@ -1,41 +1,43 @@
-
 #include "functions.h"
 #include<iostream>
 #include<algorithm>
+
 using namespace std;
-
-
 
 int main()
 {
-  Node *root = NULL;
-  Node *min= NULL;
-  Node *max= NULL;
-  Node *searched= NULL;
+    Node *root = NULL;
+    Node *min= NULL;
+    Node *max= NULL;
+    Node *searched= NULL;
 
-  float arr[]={10.5,4,3,2,1,7,20,245,6};
-  create(arr,&root);
-  printAVL(root);
-  cout<<endl;
+    float arr[]={1,2,3,4,5,6,7,8,9,10};
+    avl_create(arr,&root);
+    avl_print(root);
+    cout<<endl;
 
-  minGet(root, &min);
-  maxGet(root, &max);
-  cout<<"El menor nodo es "<<min->num<<endl;
-  cout<<"El mayor nodo es "<<max->num<<endl;
+    for (int i = 0; i < 5; i++)
+    {
+        avl_node_add(root, 10+i, &root);
+    }
+    
 
-  float num=20;
+    avl_min_get(root, &min);
+    avl_max_get(root, &max);
+    cout<<"El menor nodo es "<<min->num<<endl;
+    cout<<"El mayor nodo es "<<max->num<<endl;
 
+    float num=20;
 
-  cout<<"Buscamos el num: "<<num<<endl;
-  cout<< search(root, num, &searched)<<endl;
+    cout<<"Buscamos el num: "<<num<<endl;
+    cout<< avl_search(root, num, &searched)<<endl;
 
 for (int i = 0; i < (int)(sizeof(arr)/sizeof(float)); i++)
 {
-  cout<<deleteNode(root,arr[i],&root)<<endl;
-  printAVL(root);
-  cout<<endl;
+    cout<<avl_node_remove(root,arr[i],&root)<<endl;
+    avl_print(root);
+    cout<<endl;
 }
-
 
     return 0;
 }
