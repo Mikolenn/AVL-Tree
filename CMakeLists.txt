@@ -21,8 +21,8 @@ add_compile_options("-W" "-Wall" "-pedantic")
 # Add executable
 add_executable(exe ${SOURCES_EXE})
 
-# # Add GTest target link libraries to executable exe
-# target_link_libraries(exe ${GTEST_LIBRARIES} pthread)
+# Add GTest target link libraries to executable exe
+target_link_libraries(exe ${GTEST_LIBRARIES} pthread)
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
