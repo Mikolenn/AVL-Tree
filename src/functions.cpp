@@ -246,7 +246,7 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
     {
         error_code = avl_node_add(in_root->right, num, &in_root->right);
     }
-    else if (num <= in_root->num)
+    else if (num < in_root->num)
     {
         error_code = avl_node_add(in_root->left, num, &in_root->left);
     }
@@ -286,6 +286,7 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
         return leftRotate(in_root, new_root);
     }
 
+    *new_root = in_root;
     return error_code;
 }
 
