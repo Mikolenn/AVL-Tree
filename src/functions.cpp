@@ -3,11 +3,11 @@
 int avl_node_remove(Node* in_root, float num, Node** new_root)  
 {  
     Node* temp = new Node();
-    int error_code=-4;
+    int error_code=0;
       
     if (in_root == NULL){
         *new_root=in_root;  
-        return error_code; 
+        return -4; 
     } 
   
     // Si el valor buscado es
@@ -15,16 +15,18 @@ int avl_node_remove(Node* in_root, float num, Node** new_root)
     if ( num < in_root->num )  
 
         error_code = avl_node_remove(in_root->left, num, &(in_root->left));  
-   
+
+    // Si el valor buscado es
+    //mayor, se va a la derecha 
     else if( num > in_root->num )
 
         error_code = avl_node_remove(in_root->right, num, &(in_root->right));
 
-    else if(num != in_root->num){
+    // else if(num != in_root->num){
 
-        *new_root = in_root;
-        return -4;
-    }
+    //     *new_root = in_root;
+    //     return -4;
+    // }
  
     else
     {  
@@ -59,9 +61,12 @@ int avl_node_remove(Node* in_root, float num, Node** new_root)
         }  
     }  
    
-    if (in_root == NULL)  
-    *new_root=in_root;
-    return 0;  
+    if (in_root == NULL)
+    {
+        *new_root=in_root;
+        return 0;
+    }
+      
 
     in_root->height = 1 + max(height(in_root->left),  
                            height(in_root->right));  
@@ -93,15 +98,14 @@ int avl_node_remove(Node* in_root, float num, Node** new_root)
     }  
     
     *new_root=in_root;
-
-    return 0;  
+    return error_code;  
 }  
 
 
 int avl_search(Node * root, float num_searched, Node ** nodo){
 
     if (root == NULL) {
-
+        *nodo = NULL;
         return -4;
     }
     else if (root->num == num_searched){
@@ -127,7 +131,7 @@ int avl_create(int size, float* list, Node ** new_root){
     int error_code = 0;
 
     for (int i = 0; i < size; i++) {
-        error_code = avl_node_add(*new_root,  list[i], new_root);
+        error_code = avl_node_add(*new_root, list[i], new_root);
     }
 
     return error_code;
