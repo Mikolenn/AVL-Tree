@@ -8,12 +8,12 @@ include_directories(include)
 set(CMAKE_BUILD_TYPE Release)
 
 # # Locate GTest
-# find_package(GTest REQUIRED)
-# include_directories(${GTEST_INCLUDE_DIRS})
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
 
 ############# SOURCES FOR EXECUTABLE ##########
 # Add sources for executable
-# set(SOURCES test/main.cpp src/hello_world.cpp)
+set(SOURCES test/avl_create.cpp src/functions.cpp)
 file(GLOB SOURCES_EXE "src/*.cpp" "test/*.cpp")
 
 add_compile_options("-W" "-Wall" "-pedantic")
