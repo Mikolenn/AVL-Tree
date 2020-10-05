@@ -124,11 +124,13 @@ int avl_search(Node * root, float num_searched, Node ** nodo){
 
 int avl_create(float* list, Node ** new_root){
 
+    int error_code = 0;
+
     for (int i = 0; i < (int)sizeof(list); i++) {
-        avl_node_add(*new_root,  list[i], new_root);
+        error_code = avl_node_add(*new_root,  list[i], new_root);
     }
 
-    return 0;
+    return error_code;
 }
 
 
@@ -226,7 +228,8 @@ int balanceAVL(Node *root){
 int avl_node_add(Node* in_root, float num, Node** new_root)
 {
 
-    int return_val=0;
+    int error_code=0;
+    int aux=0;
     Node* nuevo = new Node();
     //Caso en que el nodo este vacio
     if (in_root == NULL){
@@ -237,20 +240,20 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
         nuevo->height = 1;
         *new_root=nuevo;
 
-        return return_val;
+        return error_code;
     }
 
     if (num > in_root->num)
     {
-        return_val = avl_node_add(in_root->right, num, &in_root->right);
+        error_code = avl_node_add(in_root->right, num, &in_root->right);
     }
     else if (num <= in_root->num)
     {
-        return_val = avl_node_add(in_root->left, num, &in_root->left);
+        error_code = avl_node_add(in_root->left, num, &in_root->left);
     }
     else {// No se pueden numeros iguales
 
-        return -1;
+        error_code = -1;
     }
 
     // Actualizamos las alturas
@@ -273,19 +276,18 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
     // Left Right Case
     if (balance > 1 && num > in_root->left->num)
     {
-        return_val = leftRotate(in_root->left, &in_root->left);
+        aux = leftRotate(in_root->left, &in_root->left);
         return rightRotate(in_root, new_root);
     }
 
     // Right Left Case
     if (balance < -1 && num < in_root->right->num)
     {
-        return_val = rightRotate(in_root->right, &in_root->right);
+        aux = rightRotate(in_root->right, &in_root->right);
         return leftRotate(in_root, new_root);
     }
 
-    *new_root=in_root;
-    return return_val;
+    return error_code;
 }
 
 
