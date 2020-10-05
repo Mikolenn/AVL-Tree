@@ -34,6 +34,7 @@ class Node
 * Toma una lista de números flotantes, y crea la estructura de datos deseada.
 * Retorna el nodo raíz del árbol.
 *
+* @param [in] size es el tamaño del array de entrada
 * @param [in] list es la lista de números flotantes de entrada
 * @param [out] new_root es el puntero al nodo raíz del árbol creado
 *
@@ -42,6 +43,7 @@ class Node
 *
 */
 int avl_create(
+    int size,
     float* list,
     Node ** new_root);
 

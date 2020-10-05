@@ -7,7 +7,7 @@ project(AVLTree VERSION 1.0)
 include_directories(include)
 set(CMAKE_BUILD_TYPE Release)
 
-# # Locate GTest
+# Locate GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 

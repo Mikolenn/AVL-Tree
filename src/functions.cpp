@@ -122,11 +122,11 @@ int avl_search(Node * root, float num_searched, Node ** nodo){
 }
 
 
-int avl_create(float* list, Node ** new_root){
+int avl_create(int size, float* list, Node ** new_root){
 
     int error_code = 0;
 
-    for (int i = 0; i < (int)sizeof(list); i++) {
+    for (int i = 0; i < size; i++) {
         error_code = avl_node_add(*new_root,  list[i], new_root);
     }
 
@@ -229,7 +229,6 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
 {
 
     int error_code=0;
-    int aux=0;
     Node* nuevo = new Node();
     //Caso en que el nodo este vacio
     if (in_root == NULL){
@@ -253,7 +252,7 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
     }
     else {// No se pueden numeros iguales
 
-        error_code = -1;
+        return -1;
     }
 
     // Actualizamos las alturas
@@ -276,14 +275,14 @@ int avl_node_add(Node* in_root, float num, Node** new_root)
     // Left Right Case
     if (balance > 1 && num > in_root->left->num)
     {
-        aux = leftRotate(in_root->left, &in_root->left);
+        error_code = leftRotate(in_root->left, &in_root->left);
         return rightRotate(in_root, new_root);
     }
 
     // Right Left Case
     if (balance < -1 && num < in_root->right->num)
     {
-        aux = rightRotate(in_root->right, &in_root->right);
+        error_code = rightRotate(in_root->right, &in_root->right);
         return leftRotate(in_root, new_root);
     }
 
