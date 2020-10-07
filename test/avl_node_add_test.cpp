@@ -11,7 +11,17 @@ int main()
 {
     srand(time(NULL));
 
+    int length;
+    float num = 0.0;
+    int status = 0;
+    unsigned t0, t1;
+    double time;
+
+    Node* root = new Node;
+
     FILE* archivo;
+
+    //Colocar ruta absoluta donde se desea guardar el archivo
     archivo= fopen(
         "/home/mikolen/laboDeProgra/AVL-Tree/doc/avl_node_add.txt",
         "w");
@@ -19,15 +29,14 @@ int main()
     for (int i = 0; i < 100; i++)
     {
 
-        int length = 100+rand()%(10001-100);
-        Node* root = NULL;
-        int status = 0;
-        unsigned t0, t1;
+        length = 100+rand() % (100001-100);
+        
+        root = NULL;
 
         int j = 0;
         while (j < length)
         {
-            float num = rand() % (2*length);
+            num = rand() % (2*length);
 
             if (j == 0)
             {
@@ -36,30 +45,26 @@ int main()
                 j++;
             }
 
-        int status = avl_node_add(root, num, &root);
+        status = avl_node_add(root, num, &root);
 
-            if ( status == 0)
+            if (status == 0)
             {
                 j++;
             }       
         }
+        
+        t0 = clock();
 
-        t0=clock();
-
-        do
-        {
-            float num = rand() % (2*length);
-            status = avl_node_add(root, num, &root);
-
-        } while (status != 0);
+            status = avl_node_add(root, 210000, &root);
             
         t1 = clock();
 
     
-        double time = (double(t1-t0)/CLOCKS_PER_SEC);
+        time = (double(t1-t0)/CLOCKS_PER_SEC);
 
         cout << "Tamaño actual de la estructura: " << length << endl;
         cout << "Execution Time: " << time << endl;
+        cout << "Contador: " << i << endl;
 
         fprintf(archivo, "%d,", length);
         fprintf(archivo, "%f\n", time);
