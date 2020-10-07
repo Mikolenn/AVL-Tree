@@ -7,13 +7,13 @@ project(AVLTree VERSION 1.0)
 include_directories(include)
 set(CMAKE_BUILD_TYPE Release)
 
-# # Locate GTest
+# Locate GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 ############# SOURCES FOR EXECUTABLE ##########
 # Add sources for executable
-set(SOURCES test/avl_create.cpp src/functions.cpp)
+set(SOURCES test/avl_functions_tests.cpp src/functions.cpp)
 file(GLOB SOURCES_EXE "src/*.cpp" "test/*.cpp")
 
 add_compile_options("-W" "-Wall" "-pedantic")
