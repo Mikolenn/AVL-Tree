@@ -14,11 +14,9 @@ TEST(avl_create, positive){
 
     status = avl_create(size, arr, &root);
 
-    avl_print(root);
-    cout<<endl;
-
     EXPECT_EQ(status, 0);
 }
+
 
 TEST(avl_node_add, positive){
 
@@ -32,12 +30,10 @@ TEST(avl_node_add, positive){
 
     float num = 11;
     status = avl_node_add(root, num, &root);
-
-    avl_print(root);
-    cout<<endl;
     
     EXPECT_EQ(status, 0);
 }
+
 
 TEST(avl_node_add, negative){
 
@@ -55,7 +51,7 @@ TEST(avl_node_add, negative){
     EXPECT_EQ(status, -1);
 }
 
-// Test para la funcion remove
+
 TEST(avl_node_remove, positive){
 
     int status = 0;
@@ -66,15 +62,13 @@ TEST(avl_node_remove, positive){
 
     status = avl_create(size, arr, &root);
 
-    status = avl_node_remove(root, 3, &root);
-
-    avl_print(root);
-    cout<<endl;
+    float num = 5;
+    status = avl_node_remove(root, num, &root);
 
     EXPECT_EQ(status, 0);
 }
-// esta está teniendo problemas por lo mismo que
-// el otro negative que se pierde el valor del return
+
+
 TEST(avl_node_remove, negative){
 
     int status = 0;
@@ -85,17 +79,13 @@ TEST(avl_node_remove, negative){
 
     status = avl_create(size, arr, &root);
 
-    float num = 15 ;
+    float num = 15;
     status = avl_node_remove(root, num, &root);
-
-    avl_print(root);
-    cout<<endl;
 
     EXPECT_EQ(status, -4);
 }
 
 
-// Test para el search
 TEST(avl_search, positive){
 
     int status = 0;
@@ -105,13 +95,12 @@ TEST(avl_search, positive){
     int size = (int)sizeof(arr)/sizeof(float);
     status = avl_create(size, arr, &root);
 
-    status = avl_search(root, 5, &root);
-
-    avl_print(root);
-    cout<<endl;
+    float num = 5;
+    status = avl_search(root, num, &root);
 
     EXPECT_EQ(status, 0);
 }
+
 
 TEST(avl_search, negative){
 
@@ -122,13 +111,95 @@ TEST(avl_search, negative){
     int size = (int)sizeof(arr)/sizeof(float);
     status = avl_create(size, arr, &root);
 
-    status = avl_search(root, 15, &root);
+    float num = 15;
+    status = avl_search(root, num, &root);
+
+    EXPECT_EQ(status, -4);
+}
+
+
+TEST(avl_max_get, positive){
+
+    int status = 0;
+
+    Node *root = NULL;
+    Node *max_node = NULL;
+
+    float arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int size = (int)sizeof(arr)/sizeof(float);
+    status = avl_create(size, arr, &root);
+
+    avl_max_get(root, &max_node);
+
+    EXPECT_EQ(status, 0);
+}
+
+
+TEST(avl_min_get, positive){
+
+    int status = 0;
+
+    Node *root = NULL;
+    Node *min_node = NULL;
+
+    float arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int size = (int)sizeof(arr)/sizeof(float);
+    status = avl_create(size, arr, &root);
+
+    avl_min_get(root, &min_node);
+
+    EXPECT_EQ(status, 0);
+}
+
+
+TEST(rightRotate, positive){
+
+    int status = 0;
+
+    Node *root = NULL;
+    
+    float arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int size = (int)sizeof(arr)/sizeof(float);
+    status = avl_create(size, arr, &root);
+
+    rightRotate(root, &root);
+
+    EXPECT_EQ(status, 0);
+}
+
+
+TEST(leftRotate, positive){
+
+    int status = 0;
+
+    Node *root = NULL;
+    
+    float arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int size = (int)sizeof(arr)/sizeof(float);
+    status = avl_create(size, arr, &root);
+
+    leftRotate(root, &root);
+
+    EXPECT_EQ(status, 0);
+}
+
+
+TEST(avl_print, positive){
+
+    int status = 0;
+
+    Node *root = NULL;
+    
+    float arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int size = (int)sizeof(arr)/sizeof(float);
+    status = avl_create(size, arr, &root);
 
     avl_print(root);
     cout<<endl;
 
-    EXPECT_EQ(status, -4);
+    EXPECT_EQ(status, 0);
 }
+
 
 int main(int argc, char **argv){
     ::testing::InitGoogleTest(&argc, argv);

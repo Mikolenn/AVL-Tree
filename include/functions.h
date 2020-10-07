@@ -6,11 +6,11 @@
 #include <string>
 #include <sstream>
 
-
 using namespace std;
 
 /**
 * Clase que define un nodo de la estructura de datos
+*
 */
 class Node
 {
@@ -59,12 +59,14 @@ int avl_create(
 * @param [out] new_root es el puntero al nuevo nodo raíz del árbol
 *
 * @returns error_code un código de error indicando el éxito o error
-*de la función
+* de la función
+*
 */
 int avl_node_add(
     Node* in_root,
     float num,
     Node** new_root);
+
 
 /**
 * avl_node_remove
@@ -86,6 +88,7 @@ int avl_node_remove(
     float num,
     Node** new_root);
 
+
 /**
 * avl_search
 * Toma un número flotante, lo busca y se devuelve el nodo al que pertenece.
@@ -105,6 +108,7 @@ int avl_search(
     float num_searched,
     Node ** nodo);
 
+
 /**
 * avl_max_get
 * Se obtiene el nodo que contenga el valor máximo en todo el árbol.
@@ -114,10 +118,12 @@ int avl_search(
 *
 * @returns error_code un código de error indicando el éxito o error
 * de la función
+*
 */
 int avl_max_get(
     Node* root,
     Node** max_node);
+
 
 /**
 * avl_min_get
@@ -134,6 +140,7 @@ int avl_min_get(
     Node* root,
     Node** min_node);
 
+
 /**
 * avl_print
 * Se imprime el árbol en terminal.
@@ -141,11 +148,12 @@ int avl_min_get(
 * @param [in] root es el nodo raíz original del árbol
 *
 * @returns error_code un código de error indicando el éxito o error
+* de la función
 *
-de la función
 */
 int avl_print(
     Node *root);
+
 
 /**
 * height
@@ -174,6 +182,7 @@ int rightRotate(
     Node *y,
     Node** root);
 
+
 /**
 * leftRotate
 * Realiza una rotación a la derecha del arbol o sub-árbol que recibe
@@ -200,15 +209,17 @@ int leftRotate(
 */
 int balanceAVL(Node *root);
 
+
 /**
 * Códigos de error
+*
 */
 enum avl_error_codes {
- AVL_SUCCESS = 0,
- AVL_INVALID_PARAM = -1,
- AVL_OUT_OF_RANGE = -2,
- AVL_TIMEOUT = -3,
- AVL_NOT_FOUND = -4,
+    AVL_SUCCESS = 0,
+    AVL_INVALID_PARAM = -1,
+    AVL_OUT_OF_RANGE = -2,
+    AVL_TIMEOUT = -3,
+    AVL_NOT_FOUND = -4,
 };
 
 #endif
