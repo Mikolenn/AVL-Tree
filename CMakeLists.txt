@@ -34,9 +34,6 @@ add_executable(exe_nat ${SOURCES_EXE})
 # Add GTest target link libraries to executable exe1
 target_link_libraries(exe_gft ${GTEST_LIBRARIES} pthread)
 
-# Add GTest target link libraries to executable exe2
-target_link_libraries(exe_nat ${GTEST_LIBRARIES} pthread)
-
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)

@@ -14,6 +14,9 @@ TEST(avl_create, positive){
 
     status = avl_create(size, arr, &root);
 
+    avl_print(root);
+    cout<<endl;
+
     EXPECT_EQ(status, 0);
 }
 
@@ -30,6 +33,9 @@ TEST(avl_node_add, positive){
 
     float num = 11;
     status = avl_node_add(root, num, &root);
+
+    avl_print(root);
+    cout<<endl;
     
     EXPECT_EQ(status, 0);
 }
@@ -48,6 +54,9 @@ TEST(avl_node_add, negative){
     float num = 3;
     status = avl_node_add(root, num, &root);
 
+    avl_print(root);
+    cout<<endl;
+
     EXPECT_EQ(status, -1);
 }
 
@@ -65,6 +74,9 @@ TEST(avl_node_remove, positive){
     float num = 5;
     status = avl_node_remove(root, num, &root);
 
+    avl_print(root);
+    cout<<endl;
+
     EXPECT_EQ(status, 0);
 }
 
@@ -81,6 +93,9 @@ TEST(avl_node_remove, negative){
 
     float num = 15;
     status = avl_node_remove(root, num, &root);
+
+    avl_print(root);
+    cout<<endl;
 
     EXPECT_EQ(status, -4);
 }
@@ -164,6 +179,9 @@ TEST(rightRotate, positive){
 
     rightRotate(root, &root);
 
+    avl_print(root);
+    cout<<endl;
+
     EXPECT_EQ(status, 0);
 }
 
@@ -179,6 +197,9 @@ TEST(leftRotate, positive){
     status = avl_create(size, arr, &root);
 
     leftRotate(root, &root);
+
+    avl_print(root);
+    cout<<endl;
 
     EXPECT_EQ(status, 0);
 }

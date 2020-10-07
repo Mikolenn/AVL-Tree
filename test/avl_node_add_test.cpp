@@ -53,22 +53,20 @@ int main()
             }       
         }
         
+        num = (rand() % (2*length)) + 0.1;
+
         t0 = clock();
 
-            status = avl_node_add(root, 210000, &root);
+            status = avl_node_add(root, num, &root);
             
         t1 = clock();
 
-    
         time = (double(t1-t0)/CLOCKS_PER_SEC);
-
-        cout << "Tamaño actual de la estructura: " << length << endl;
-        cout << "Execution Time: " << time << endl;
-        cout << "Contador: " << i << endl;
 
         fprintf(archivo, "%d,", length);
         fprintf(archivo, "%f\n", time);
     
     }
+
     fclose(archivo);
 }
