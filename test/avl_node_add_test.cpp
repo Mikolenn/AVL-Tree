@@ -56,7 +56,8 @@ int main()
             }
         }
 
-        // Numero aleatorio en el mismo rango pero no entero.
+        // Numero aleatorio en el mismo rango pero no entero. Asegura que la
+        // inserción no falle, porque el número es diferente a los otros 
         num = (rand() % (2*length)) + 0.1;
         // Se toma el tiempo antes de llamar a la función
         t0 = clock();
