@@ -102,12 +102,6 @@ int avl_node_remove(Node* in_root, float num, Node** new_root)
 
         error_code = avl_node_remove(in_root->right, num, &(in_root->right));
 
-    // else if(num != in_root->num){
-
-    //     *new_root = in_root;
-    //     return -4;
-    // }
-
     else
     {
         // Si el nodo no tiene hijos, se deshace ese nodo
@@ -149,7 +143,7 @@ int avl_node_remove(Node* in_root, float num, Node** new_root)
 
 
     in_root->height = 1 + max(height(in_root->left),
-                           height(in_root->right
+                           height(in_root->right));
 
     // Mismo bloque para revisar el balance que en avl_node_add
     int balance = balanceAVL(in_root);
